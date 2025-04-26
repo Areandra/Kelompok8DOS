@@ -3,51 +3,54 @@
 
 #include <iostream>
 #include <string>
-#include "linkedlist.hpp"
+#include "LinkedList.hpp"
 
 using namespace std;
 LinkedList DOS;
 
-void DiskOperatingSystem(){
-    cout << ":\\>" << endl;
+string curentDir(Node* node) {
+    if (node->isRoot) return node->data + ":\\";
+    return curentDir(node->prev) + node->data + "\\";
 }
 
-void createDirectory(string name) {;
+void mkdir(const string& name) {
     DOS.insert(name);
-    cout << "Directory " << name << " created." << endl;
+    cout << "Directory '" << name << "' created.\n";
 }
 
-void deleteDirectory(string name) {
-    DOS.remove(name);
-    cout << "Directory " << name << " deleted." << endl;
+void rmdir(const string& name) {
+    bool found = false;
+    DOS.remove(name, found);
+    if (found) {
+        cout << "Directory '" << name << "' deleted.\n";
+    } else {
+        cout << "Directory '" << name << "' not found.\n";
+    }
 }
 
-void listDirectories() {
-    cout << "List of directories:" << endl;
+void dir() {
+    cout << "List of directories:\n";
     DOS.display();
 }
 
-void cdCommand(string name) {
+void cd(const string& name) {
     if (name == "..") {
         if (DOS.temp->isRoot) {
-            cout << "Already at root directory." << endl;
+            cout << "Already at root directory.\n";
         } else {
             DOS.temp = DOS.temp->prev;
         }
     } else {
-        for (auto& node : DOS.temp->next) {
-            if (node->data == name) {
-                DOS.temp = node;
+        Node* current = DOS.temp->next_v;
+        while (current) {
+            if (current->data == name) {
+                DOS.temp = current;
                 return;
             }
+            current = current->next_h;
         }
-        cout << "Directory not found." << endl;
+        cout << "Directory not found.\n";
     }
-}
-
-string curentDir(Node* node) {
-    if (node->isRoot) return node->data + ":\\";
-    return curentDir(node->prev) + "\\" + node->data;
 }
 
 #endif // DOS_HPP

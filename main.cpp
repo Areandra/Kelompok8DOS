@@ -19,15 +19,15 @@ int main() {
 
         if (cmd == "mkdir") {
             cin >> arg;
-            createDirectory(arg);
+            mkdir(arg);
         } else if (cmd == "rmdir") {
             cin >> arg;
-            deleteDirectory(arg);
+            rmdir(arg);
         } else if (cmd == "cd") {
             cin >> arg;
-            cdCommand(arg);
+            cd(arg);
         } else if (cmd == "dir") {
-            listDirectories();
+            dir();
         } else if (cmd == "exit") {
             break;
         } else {

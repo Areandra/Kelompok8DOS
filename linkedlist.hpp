@@ -2,10 +2,8 @@
 #define LINKEDLIST_HPP
 
 #include <iostream>
-#include <string>
 using namespace std;
 
-// Struktur Node
 struct Node {
     string data;
     Node* next_h;   
@@ -72,7 +70,6 @@ public:
         found = false;
     }
 
-    // Destructor
     ~LinkedList() {
         deleteAll(head);
     }

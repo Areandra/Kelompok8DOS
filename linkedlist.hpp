@@ -11,10 +11,9 @@ struct Node {
     Node* next_h;   
     Node* next_v;   
     Node* prev;     
-    bool isRoot;
 
-    Node(string n, Node* h = nullptr, Node* p = nullptr, Node* v = nullptr, bool root = false)
-        : data(n), next_h(h), next_v(v), prev(p), isRoot(root) {}
+    Node(string n, Node* h = nullptr, Node* p = nullptr, Node* v = nullptr)
+        : data(n), next_h(h), next_v(v), prev(p) {}
 };
 
 class LinkedList {
@@ -22,52 +21,52 @@ private:
     Node* head;
 
 public:
-    Node* temp;
+    Node* current;
 
     LinkedList() {
-        head = new Node("C", nullptr, nullptr, nullptr, true);
-        temp = head;
+        head = new Node("C", nullptr, nullptr, nullptr);
+        current = head;
     }
 
     void insert(string value) {
-        Node* newDir = new Node(value, nullptr, temp); 
-        if (!temp->next_v) {
-            temp->next_v = newDir;
+        Node* newDir = new Node(value, nullptr, current); 
+        if (!current->next_v) {
+            current->next_v = newDir;
         } else {
-            Node* current = temp->next_v;
-            while (current->next_h) {
-                current = current->next_h;
+            Node* temp = current->next_v;
+            while (temp->next_h) {
+                temp = temp->next_h;
             }
-            current->next_h = newDir;
+            temp->next_h = newDir;
         }
     }
 
     void display() {
-        Node* current = temp->next_v;
-        while (current) {
-            cout << current->data << "\n";
-            current = current->next_h;
+        Node* temp = current->next_v;
+        while (temp) {
+            cout << temp->data << "\n";
+            temp = temp->next_h;
         }
     }
 
     void remove(const string& value, bool& found) {
-        Node* parent = temp;
-        Node* current = parent->next_v;
-        Node* prev = nullptr;
+        Node* prev_v = current;
+        Node* temp = prev_v->next_v;
+        Node* prev_h = nullptr;
 
-        while (current) {
-            if (current->data == value) {
-                if (prev) {
-                    prev->next_h = current->next_h; 
+        while (temp) {
+            if (temp->data == value) {
+                if (prev_h) {
+                    prev_h->next_h = temp->next_h; 
                 } else {
-                    parent->next_v = current->next_h; 
+                    prev_v->next_v = temp->next_h; 
                 }
-                delete current;
+                delete temp;
                 found = true;
                 return;
             }
-            prev = current;
-            current = current->next_h;
+            prev_h = temp;
+            temp = temp->next_h;
         }
 
         found = false;

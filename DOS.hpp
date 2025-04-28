@@ -9,7 +9,7 @@ using namespace std;
 LinkedList DOS;
 
 string curentDir(Node* node) {
-    if (node->isRoot) return node->data + ":\\";
+    if (!(node->prev)) return node->data + ":\\";
     return curentDir(node->prev) + node->data + "\\";
 }
 
@@ -35,16 +35,16 @@ void dir() {
 
 void cd(const string& name) {
     if (name == "..") {
-        if (DOS.temp->isRoot) {
+        if (!(DOS.current->prev)) {
             cout << "Already at root directory.\n";
         } else {
-            DOS.temp = DOS.temp->prev;
+            DOS.current = DOS.current->prev;
         }
     } else {
-        Node* current = DOS.temp->next_v;
+        Node* current = DOS.current->next_v;
         while (current) {
             if (current->data == name) {
-                DOS.temp = current;
+                DOS.current = current;
                 return;
             }
             current = current->next_h;

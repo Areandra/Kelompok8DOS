@@ -10,11 +10,11 @@ int main() {
     cout << "1. Muh. Ariel (F55124049)" << endl;
     cout << "2. Surya Kusuma Pamungkas (F55124062)" << endl;
     cout << "3. Latifah Putri Fakhruddin (F55124067)" << endl;
-    cout << "4. Aul Zikri (F55124046)" << endl;
+    cout << "4. Aul Zikri (F55124046)" << endl << endl;
     
     string cmd, arg;
     while (true) {
-        cout << curentDir(DOS.temp) << ">";
+        cout << curentDir(DOS.current) << ">";
         cin >> cmd;
 
         if (cmd == "mkdir") {

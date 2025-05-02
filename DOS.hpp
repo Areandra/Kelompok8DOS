@@ -9,8 +9,8 @@ using namespace std;
 LinkedList DOS;
 
 string curentDir(Node* node) {
-    if (!(node->prev)) return node->data + ":\\";
-    return curentDir(node->prev) + node->data + "\\";
+    if (!(node->parent)) return node->data + ":\\";
+    return curentDir(node->parent) + node->data + "\\";
 }
 
 void mkdir(const string& name) {
@@ -35,19 +35,19 @@ void dir() {
 
 void cd(const string& name) {
     if (name == "..") {
-        if (!(DOS.current->prev)) {
+        if (!(DOS.current->parent)) {
             cout << "Already at root directory.\n";
         } else {
-            DOS.current = DOS.current->prev;
+            DOS.current = DOS.current->parent;
         }
     } else {
-        Node* current = DOS.current->next_v;
-        while (current) {
-            if (current->data == name) {
-                DOS.current = current;
+        Node* temp = DOS.current->anakanPertama;
+        while (temp) {
+            if (temp->data == name) {
+                DOS.current = temp;
                 return;
             }
-            current = current->next_h;
+            temp = temp->saudara;
         }
         cout << "Directory not found.\n";
     }

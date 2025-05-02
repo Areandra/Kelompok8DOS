@@ -49,8 +49,7 @@ public:
     }
 
     void remove(const string& value, bool& found) {
-        Node* prev_parent = current;
-        Node* temp = prev_parent->anakanPertama;
+        Node* temp = current->anakanPertama;
         Node* prev_saudara = nullptr;
 
         while (temp) {
@@ -58,7 +57,7 @@ public:
                 if (prev_saudara) {
                     prev_saudara->saudara = temp->saudara; 
                 } else {
-                    prev_parent->anakanPertama = temp->saudara; 
+                    current->anakanPertama = temp->saudara; 
                 }
                 delete temp;
                 found = true;
